@@ -9,15 +9,27 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CanCode/src/CanDrive.cpp \
+    CanCode/src/SignalUnit.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    workwindow.cpp
 
 HEADERS += \
+    CanCode/inc/CanDrive.hpp \
+    CanCode/inc/CanMsg.hpp \
+    CanCode/inc/FIleMgr.hpp \
+    CanCode/inc/MainProccess.hpp \
+    CanCode/inc/SignalUnit.hpp \
+    CanCode/inc/TestList.h \
+    CanCode/inc/UI.hpp \
     canbus.h \
-    mainwindow.h
+    mainwindow.h \
+    workwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    workwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

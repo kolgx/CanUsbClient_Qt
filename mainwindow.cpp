@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "canbus.h"
-
+#include "workwindow.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,13 +16,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
+
+void MainWindow::on_mw_pushButton_scan_clicked()
 {
-    int i = CAN_ScanDevice();
-    if (i > 0){
-        ui->textEdit->setText("success,find device");
+    int res = CAN_ScanDevice();
+    if (res > 0){
+        ui->mw_comboBox_channel->clear();
+        ui->mw_comboBox_channel->addItems({"0", "1"});
     } else {
-        ui->textEdit->setText("failed, try again.");
+        ui->mw_comboBox_channel->clear();
     }
+}
+
+
+void MainWindow::on_mw_pushButton_open_clicked()
+{
+    WorkWindow ww;
+    ww.show();
 }
 
