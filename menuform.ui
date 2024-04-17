@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MenuForm</class>
+ <widget class="QWidget" name="MenuForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>559</width>
+    <height>366</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>设备状态：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="mf_label_device_info">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ef2929;&quot;&gt;未连接&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="buddy">
+        <cstring>mf_pushButton_open_device</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mf_pushButton_open_device">
+       <property name="text">
+        <string>配置设备</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>查看Can线上实时数据</string>
+       </property>
+       <property name="buddy">
+        <cstring>mf_pushButton_watch</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mf_pushButton_watch">
+       <property name="text">
+        <string>查看</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>发送Bcan数据至Can线</string>
+       </property>
+       <property name="buddy">
+        <cstring>mf_pushButton_send</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mf_pushButton_send">
+       <property name="text">
+        <string>发送</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>进入走行测试仪表界面</string>
+       </property>
+       <property name="buddy">
+        <cstring>mf_pushButton_uxr</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mf_pushButton_uxr">
+       <property name="text">
+        <string>走行</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>进入APP测试仪表界面</string>
+       </property>
+       <property name="buddy">
+        <cstring>mf_pushButton_app</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mf_pushButton_app">
+       <property name="text">
+        <string>APP</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

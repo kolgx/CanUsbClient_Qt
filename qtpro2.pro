@@ -13,6 +13,8 @@ SOURCES += \
     CanCode/src/SignalUnit.cpp \
     main.cpp \
     mainwindow.cpp \
+    menuform.cpp \
+    signalmonitorform.cpp \
     workwindow.cpp
 
 HEADERS += \
@@ -25,10 +27,14 @@ HEADERS += \
     CanCode/inc/UI.hpp \
     canbus.h \
     mainwindow.h \
+    menuform.h \
+    signalmonitorform.h \
     workwindow.h
 
 FORMS += \
     mainwindow.ui \
+    menuform.ui \
+    signalmonitorform.ui \
     workwindow.ui
 
 # Default rules for deployment.

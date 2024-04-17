@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,12 +18,23 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_mw_pushButton_scan_clicked();
+    enum WidgetFlag{
+        Flag_MenuForm,
+        Flag_WorkWindow
+    };
 
-    void on_mw_pushButton_open_clicked();
+public slots:
+    void changeWidgetByFlag(int);
 
 private:
     Ui::MainWindow *ui;
+    QMap<int, QWidget*> widgetMap;
+
+    void init();
+    void release();
+    QWidget* get_widgetByFlag(int);
+    void release_widgetMap();
+    void set_currentStackWidget(QWidget *);
+    void remove_stackWidget(QWidget *);
 };
 #endif // MAINWINDOW_H
