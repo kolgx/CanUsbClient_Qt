@@ -20,11 +20,14 @@ public:
 
     enum WidgetFlag{
         Flag_MenuForm,
-        Flag_WorkWindow
+        Flag_DeviceMgr,
+        Flag_SignalMonitorForm
     };
 
 public slots:
     void changeWidgetByFlag(int);
+    void connectSignal2Slot(int, const char *, int, const char *);
+    void disconnectSignal2Slot(int, const char *, int, const char *);
 
 private:
     Ui::MainWindow *ui;

@@ -2,7 +2,7 @@
 #define MENUFORM_H
 
 #include <QWidget>
-#include "CanCode/inc/CanDrive.hpp"
+#include "../../CanCode/inc/CanDrive.hpp"
 
 namespace Ui {
 class MenuForm;
@@ -18,12 +18,16 @@ public:
 
 signals:
     void request_changeWidgetByFlag(int);
+    void request_connectSignal2Slot(int, const char *, int, const char *);
+    void request_disconnectSignal2Slot(int, const char *, int, const char *);
 
 public slots:
     void on_can_drive_change(CanDrive*,bool);
 
 private slots:
     void on_mf_pushButton_open_device_clicked();
+
+    void on_mf_pushButton_watch_clicked();
 
 private:
     Ui::MenuForm *ui;

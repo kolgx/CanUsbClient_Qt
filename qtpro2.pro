@@ -13,9 +13,10 @@ SOURCES += \
     CanCode/src/SignalUnit.cpp \
     main.cpp \
     mainwindow.cpp \
-    menuform.cpp \
-    signalmonitorform.cpp \
-    workwindow.cpp
+    widget/devicemgr/devicemgrform.cpp \
+    widget/menu/menuform.cpp \
+    widget/signalmonitor/signalitemform.cpp \
+    widget/signalmonitor/signalmonitorform.cpp
 
 HEADERS += \
     CanCode/inc/CanDrive.hpp \
@@ -27,15 +28,17 @@ HEADERS += \
     CanCode/inc/UI.hpp \
     canbus.h \
     mainwindow.h \
-    menuform.h \
-    signalmonitorform.h \
-    workwindow.h
+    widget/devicemgr/devicemgrform.h \
+    widget/menu/menuform.h \
+    widget/signalmonitor/signalitemform.h \
+    widget/signalmonitor/signalmonitorform.h
 
 FORMS += \
     mainwindow.ui \
-    menuform.ui \
-    signalmonitorform.ui \
-    workwindow.ui
+    widget/devicemgr/devicemgrform.ui \
+    widget/menu/menuform.ui \
+    widget/signalmonitor/signalitemform.ui \
+    widget/signalmonitor/signalmonitorform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

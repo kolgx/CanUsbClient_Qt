@@ -15,6 +15,16 @@ public:
     explicit SignalMonitorForm(QWidget *parent = nullptr);
     ~SignalMonitorForm();
 
+signals:
+    void request_changeWidgetByFlag(int);
+    void request_connectSignal2Slot(int, const char *, int, const char *);
+    void request_disconnectSignal2Slot(int, const char *, int, const char *);
+
+private slots:
+    void on_smf_pushButton_back_clicked();
+
+    void on_smf_pushButton_add_clicked();
+
 private:
     Ui::SignalMonitorForm *ui;
 };

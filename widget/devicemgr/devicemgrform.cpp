@@ -1,30 +1,30 @@
-#include "workwindow.h"
-#include "ui_workwindow.h"
+#include "devicemgrform.h"
+#include "ui_devicemgrform.h"
 
-WorkWindow::WorkWindow(QWidget *parent)
+DeviceMgrForm::DeviceMgrForm(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::WorkWindow)
+    , ui(new Ui::DeviceMgrForm)
 {
     ui->setupUi(this);
     scan_device();
 }
 
-WorkWindow::~WorkWindow()
+DeviceMgrForm::~DeviceMgrForm()
 {
     delete ui;
 }
 
-void WorkWindow::on_ww_pushButton_scan_clicked()
+void DeviceMgrForm::on_ww_pushButton_scan_clicked()
 {
     scan_device();
 }
 
-void WorkWindow::on_ww_pushButton_reset_clicked()
+void DeviceMgrForm::on_ww_pushButton_reset_clicked()
 {
     reset_config();
 }
 
-void WorkWindow::on_ww_pushButton_open_clicked()
+void DeviceMgrForm::on_ww_pushButton_open_clicked()
 {
     bool res = false;
 
@@ -43,7 +43,7 @@ void WorkWindow::on_ww_pushButton_open_clicked()
     emit can_drive_change(canDrive, res);
 }
 
-void WorkWindow::scan_device(){
+void DeviceMgrForm::scan_device(){
     int res = CAN_ScanDevice();
     if (res > 0){
         set_ww_comboBox_channel_Items({"0", "1"});
@@ -52,7 +52,7 @@ void WorkWindow::scan_device(){
     }
 }
 
-void WorkWindow::reset_config(){
+void DeviceMgrForm::reset_config(){
     scan_device();
     getComboBoxByFlag(comboBox_baudrate)->setCurrentIndex(std::min(getComboBoxByFlag(comboBox_baudrate)->maxVisibleItems(), 10));
     getComboBoxByFlag(comboBox_workmodel)->setCurrentIndex(std::min(getComboBoxByFlag(comboBox_workmodel)->maxVisibleItems(), 0));
@@ -61,14 +61,14 @@ void WorkWindow::reset_config(){
     getCheckBoxByFlag(checkBox_onresistance)->setChecked(true);
 }
 
-void WorkWindow::set_ww_comboBox_channel_Items(const QStringList &items){
+void DeviceMgrForm::set_ww_comboBox_channel_Items(const QStringList &items){
     getComboBoxByFlag(comboBox_channel)->clear();
     if (items.size() != 0){
         getComboBoxByFlag(comboBox_channel)->addItems(items);
     }
 }
 
-bool WorkWindow::closeCanDrive(){
+bool DeviceMgrForm::closeCanDrive(){
     if (canDrive != NULL){
         delete canDrive;
         canDrive = NULL;
@@ -76,7 +76,7 @@ bool WorkWindow::closeCanDrive(){
     return true;
 }
 
-bool WorkWindow::creatCanDrive(){
+bool DeviceMgrForm::creatCanDrive(){
     closeCanDrive();
 
     int channel = -1, baudrate = -1, workmodel = -1;
@@ -119,7 +119,7 @@ bool WorkWindow::creatCanDrive(){
     return true;
 }
 
-QComboBox* WorkWindow::getComboBoxByFlag(int flag){
+QComboBox* DeviceMgrForm::getComboBoxByFlag(int flag){
     switch (flag) {
     case comboBox_channel:
         return ui->ww_comboBox_channel;
@@ -137,7 +137,7 @@ QComboBox* WorkWindow::getComboBoxByFlag(int flag){
     }
 }
 
-QCheckBox* WorkWindow::getCheckBoxByFlag(int flag){
+QCheckBox* DeviceMgrForm::getCheckBoxByFlag(int flag){
     switch (flag) {
     case checkBox_autoresand:
         return ui->ww_checkBox_autoresand;
@@ -155,7 +155,7 @@ QCheckBox* WorkWindow::getCheckBoxByFlag(int flag){
     }
 }
 
-QPushButton* WorkWindow::getPushButtonByFlag(int flag){
+QPushButton* DeviceMgrForm::getPushButtonByFlag(int flag){
     switch (flag) {
     case pushButton_open:
         return ui->ww_pushButton_open;

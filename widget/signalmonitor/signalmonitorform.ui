@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SignalMonitorForm</class>
+ <widget class="QWidget" name="SignalMonitorForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>740</width>
+    <height>571</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>查看</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="smf_pushButton_back">
+       <property name="text">
+        <string>返回</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="smf_pushButton_add">
+       <property name="text">
+        <string>addItem</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListView" name="listView"/>
+     </item>
+     <item>
+      <widget class="QTreeView" name="treeView"/>
+     </item>
+     <item>
+      <widget class="QListWidget" name="smf_listWidget_test"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

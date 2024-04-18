@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WorkWindow</class>
- <widget class="QWidget" name="WorkWindow">
+ <class>DeviceMgrForm</class>
+ <widget class="QWidget" name="DeviceMgrForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>287</width>
-    <height>190</height>
+    <width>583</width>
+    <height>386</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>0</width>
-    <height>0</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>打开设备</string>

@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "workwindow.h"
-#include "menuform.h"
+#include "widget/devicemgr/devicemgrform.h"
+#include "widget/menu/menuform.h"
+#include "widget/signalmonitor/signalmonitorform.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,26 +19,22 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::changeWidgetByFlag(int flag){
-    switch (flag) {
-    case Flag_MenuForm:
-        disconnect(get_widgetByFlag(Flag_WorkWindow), SIGNAL(can_drive_change(CanDrive*,bool)), get_widgetByFlag(Flag_MenuForm), SLOT(on_can_drive_change(CanDrive*,bool)));
-        break;
-    case Flag_WorkWindow:
-        connect(get_widgetByFlag(Flag_WorkWindow), SIGNAL(can_drive_change(CanDrive*,bool)), get_widgetByFlag(Flag_MenuForm), SLOT(on_can_drive_change(CanDrive*,bool)));
-        break;
-    default:
-        break;
-    }
     set_currentStackWidget(get_widgetByFlag(flag));
 }
 
+void MainWindow::connectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
+    connect(get_widgetByFlag(sender), signal, get_widgetByFlag(receiver), member);
+}
+
+void MainWindow::disconnectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
+    disconnect(get_widgetByFlag(sender), signal, get_widgetByFlag(receiver), member);
+}
+
 void MainWindow::init(){
-    connect(get_widgetByFlag(Flag_MenuForm), SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
     set_currentStackWidget(get_widgetByFlag(Flag_MenuForm));
 }
 
 void MainWindow::release(){
-    disconnect(get_widgetByFlag(Flag_MenuForm), SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
     release_widgetMap();
 }
 
@@ -64,17 +61,23 @@ QWidget* MainWindow::get_widgetByFlag(int flag){
     }
     QWidget *widget = NULL;
     switch (flag) {
-    case Flag_WorkWindow:
-        widget = new WorkWindow();
+    case Flag_DeviceMgr:
+        widget = new DeviceMgrForm();
         break;
     case Flag_MenuForm:
         widget = new MenuForm();
+        break;
+    case Flag_SignalMonitorForm:
+        widget = new SignalMonitorForm();
         break;
     default:
         printf("get_widgetByFlag failed: uknow flag %d\n", flag);
         break;
     }
     if (widget != NULL){
+        connect(widget, SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
+        connect(widget, SIGNAL(request_connectSignal2Slot(int,const char*,int,const char*)), this, SLOT(connectSignal2Slot(int,const char*,int,const char*)));
+        connect(widget, SIGNAL(request_disconnectSignal2Slot(int,const char*,int,const char*)), this, SLOT(disconnectSignal2Slot(int,const char*,int,const char*)));
         widgetMap.insert(flag, widget);
     }
     return widget;
@@ -83,6 +86,9 @@ QWidget* MainWindow::get_widgetByFlag(int flag){
 void MainWindow::release_widgetMap(){
     for (auto index = widgetMap.begin(), end = widgetMap.end(); index != end; ++index){
         // printf("release_widgetMap success for: %d\n", index.key());
+        disconnect(index.value(), SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
+        disconnect(index.value(), SIGNAL(request_connectSignal2Slot(int,const char*,int,const char*)), this, SLOT(connectSignal2Slot(int,const char*,int,const char*)));
+        disconnect(index.value(), SIGNAL(request_disconnectSignal2Slot(int,const char*,int,const char*)), this, SLOT(disconnectSignal2Slot(int,const char*,int,const char*)));
         remove_stackWidget(index.value());
         delete index.value();
     }

@@ -1,23 +1,26 @@
-#ifndef WORKWINDOW_H
-#define WORKWINDOW_H
+#ifndef DEVICEMGRFORM_H
+#define DEVICEMGRFORM_H
 
 #include <QWidget>
-#include "CanCode/inc/CanDrive.hpp"
-#include "ui_workwindow.h"
+#include "../../CanCode/inc/CanDrive.hpp"
+#include "ui_devicemgrform.h"
 
 namespace Ui {
-class WorkWindow;
+class DeviceMgrForm;
 }
 
-class WorkWindow : public QWidget
+class DeviceMgrForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit WorkWindow(QWidget *parent = nullptr);
-    ~WorkWindow();
+    explicit DeviceMgrForm(QWidget *parent = nullptr);
+    ~DeviceMgrForm();
 
 signals:
+    void request_changeWidgetByFlag(int);
+    void request_connectSignal2Slot(int, const char *, int, const char *);
+    void request_disconnectSignal2Slot(int, const char *, int, const char *);
     void can_drive_change(CanDrive *, bool);
 
 private slots:
@@ -41,7 +44,7 @@ private:
         pushButton_reset
     };
 
-    Ui::WorkWindow *ui;
+    Ui::DeviceMgrForm *ui;
     CanDrive* canDrive = NULL;
 
     void scan_device();
@@ -55,4 +58,4 @@ private:
 
 };
 
-#endif // WORKWINDOW_H
+#endif // DEVICEMGRFORM_H
