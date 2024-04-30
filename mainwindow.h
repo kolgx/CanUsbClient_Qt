@@ -19,15 +19,19 @@ public:
     ~MainWindow();
 
     enum WidgetFlag{
+        Flag_MainWindow,
         Flag_MenuForm,
         Flag_DeviceMgr,
         Flag_SignalMonitorForm
     };
 
 public slots:
-    void changeWidgetByFlag(int);
-    void connectSignal2Slot(int, const char *, int, const char *);
-    void disconnectSignal2Slot(int, const char *, int, const char *);
+    void slots_changeWidgetByFlag(int);
+    void slots_connectSignal2Slot(int, const char *, int, const char *);
+    void slots_disconnectSignal2Slot(int, const char *, int, const char *);
+
+signals:
+    void signals_widgetChangeToFlag(int);
 
 private:
     Ui::MainWindow *ui;
@@ -39,5 +43,7 @@ private:
     void release_widgetMap();
     void set_currentStackWidget(QWidget *);
     void remove_stackWidget(QWidget *);
+    QObject* getObjByFlag(int);
+    void signalSoltDeal(QObject*, bool);
 };
 #endif // MAINWINDOW_H

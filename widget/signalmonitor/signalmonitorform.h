@@ -16,9 +16,9 @@ public:
     ~SignalMonitorForm();
 
 signals:
-    void request_changeWidgetByFlag(int);
-    void request_connectSignal2Slot(int, const char *, int, const char *);
-    void request_disconnectSignal2Slot(int, const char *, int, const char *);
+    void signals_changeWidgetByFlag(int);
+    void signals_connectSignal2Slot(int, const char *, int, const char *);
+    void signals_disconnectSignal2Slot(int, const char *, int, const char *);
 
 private slots:
     void on_smf_pushButton_back_clicked();

@@ -40,7 +40,7 @@ void DeviceMgrForm::on_ww_pushButton_open_clicked()
         getPushButtonByFlag(pushButton_open)->setText("打开");
     }
 
-    emit can_drive_change(canDrive, res);
+    emit signals_canDriveChange(canDrive, res);
 }
 
 void DeviceMgrForm::scan_device(){

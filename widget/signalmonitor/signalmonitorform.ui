@@ -31,12 +31,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QListView" name="listView"/>
-     </item>
-     <item>
-      <widget class="QTreeView" name="treeView"/>
-     </item>
-     <item>
       <widget class="QListWidget" name="smf_listWidget_test"/>
      </item>
     </layout>

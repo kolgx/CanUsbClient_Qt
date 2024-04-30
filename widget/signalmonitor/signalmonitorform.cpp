@@ -16,14 +16,13 @@ SignalMonitorForm::~SignalMonitorForm()
 
 void SignalMonitorForm::on_smf_pushButton_back_clicked()
 {
-    emit request_changeWidgetByFlag(MainWindow::Flag_MenuForm);
+    emit signals_changeWidgetByFlag(MainWindow::Flag_MenuForm);
 }
 
 void SignalMonitorForm::on_smf_pushButton_add_clicked()
 {
-    static QString tmpStr = "test";
-    static int x = 0, y = 0;
+    static QString tmpStr = "test\ta\tb\tc";
     tmpStr.append("1");
     ui->smf_listWidget_test->addItem(tmpStr);
-    y++;
+    ui->smf_listWidget_test->scrollToItem(ui->smf_listWidget_test->item(ui->smf_listWidget_test->count() -1));
 }

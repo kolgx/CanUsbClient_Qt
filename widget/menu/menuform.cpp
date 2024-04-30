@@ -16,18 +16,18 @@ MenuForm::~MenuForm()
 
 void MenuForm::on_mf_pushButton_open_device_clicked()
 {
-    emit request_connectSignal2Slot(MainWindow::Flag_DeviceMgr, SIGNAL(can_drive_change(CanDrive*,bool)), MainWindow::Flag_MenuForm, SLOT(on_can_drive_change(CanDrive*,bool)));
-    emit request_changeWidgetByFlag(MainWindow::Flag_DeviceMgr);
+    emit signals_connectSignal2Slot(MainWindow::Flag_DeviceMgr, SIGNAL(signals_canDriveChange(CanDrive*,bool)), MainWindow::Flag_MenuForm, SLOT(slots_canDriveChange(CanDrive*,bool)));
+    emit signals_changeWidgetByFlag(MainWindow::Flag_DeviceMgr);
 }
 
 void MenuForm::on_mf_pushButton_watch_clicked()
 {
-    emit request_changeWidgetByFlag(MainWindow::Flag_SignalMonitorForm);
+    emit signals_changeWidgetByFlag(MainWindow::Flag_SignalMonitorForm);
 }
 
-void MenuForm::on_can_drive_change(CanDrive *candrive, bool isopen){
-    emit request_disconnectSignal2Slot(MainWindow::Flag_DeviceMgr, SIGNAL(can_drive_change(CanDrive*,bool)), MainWindow::Flag_MenuForm, SLOT(on_can_drive_change(CanDrive*,bool)));
-    emit request_changeWidgetByFlag(MainWindow::Flag_MenuForm);
+void MenuForm::slots_canDriveChange(CanDrive *candrive, bool isopen){
+    emit signals_disconnectSignal2Slot(MainWindow::Flag_DeviceMgr, SIGNAL(signals_canDriveChange(CanDrive*,bool)), MainWindow::Flag_MenuForm, SLOT(slots_canDriveChange(CanDrive*,bool)));
+    emit signals_changeWidgetByFlag(MainWindow::Flag_MenuForm);
     this->candrive = candrive;
     set_mf_label_device_info_isconnect(isopen);
 }

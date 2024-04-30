@@ -18,10 +18,10 @@ public:
     ~DeviceMgrForm();
 
 signals:
-    void request_changeWidgetByFlag(int);
-    void request_connectSignal2Slot(int, const char *, int, const char *);
-    void request_disconnectSignal2Slot(int, const char *, int, const char *);
-    void can_drive_change(CanDrive *, bool);
+    void signals_changeWidgetByFlag(int);
+    void signals_connectSignal2Slot(int, const char *, int, const char *);
+    void signals_disconnectSignal2Slot(int, const char *, int, const char *);
+    void signals_canDriveChange(CanDrive *, bool);
 
 private slots:
     void on_ww_pushButton_scan_clicked();

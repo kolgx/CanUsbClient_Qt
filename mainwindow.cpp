@@ -4,6 +4,22 @@
 #include "widget/menu/menuform.h"
 #include "widget/signalmonitor/signalmonitorform.h"
 
+typedef struct _SignalToSolt
+{
+    const char *signal;
+    const char *solt;
+    bool isSolt;
+} SignalToSolt;
+
+static const int signalToSoltListSize = 3;
+
+static const SignalToSolt signalToSoltList[]{
+    {SIGNAL(signals_changeWidgetByFlag(int)), SLOT(slots_changeWidgetByFlag(int)), true},
+    {SIGNAL(signals_connectSignal2Slot(int,const char*,int,const char*)), SLOT(slots_connectSignal2Slot(int,const char*,int,const char*)), true},
+    {SIGNAL(signals_disconnectSignal2Slot(int,const char*,int,const char*)), SLOT(slots_disconnectSignal2Slot(int,const char*,int,const char*)), true},
+    {SIGNAL(signals_widgetChangeToFlag(int)), SLOT(slots_widgetChangeToFlag(int)), false}
+};
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -18,16 +34,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::changeWidgetByFlag(int flag){
+void MainWindow::slots_changeWidgetByFlag(int flag){
     set_currentStackWidget(get_widgetByFlag(flag));
+    emit signals_widgetChangeToFlag(flag);
 }
 
-void MainWindow::connectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
-    connect(get_widgetByFlag(sender), signal, get_widgetByFlag(receiver), member);
+QObject* MainWindow::getObjByFlag(int flag){
+    if (flag == Flag_MainWindow)
+        return this;
+    else
+        return get_widgetByFlag(flag);
 }
 
-void MainWindow::disconnectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
-    disconnect(get_widgetByFlag(sender), signal, get_widgetByFlag(receiver), member);
+void MainWindow::slots_connectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
+    connect(getObjByFlag(sender), signal, getObjByFlag(receiver), member);
+}
+
+void MainWindow::slots_disconnectSignal2Slot(int sender, const char *signal, int receiver, const char *member){
+    disconnect(getObjByFlag(sender), signal, getObjByFlag(receiver), member);
 }
 
 void MainWindow::init(){
@@ -75,9 +99,7 @@ QWidget* MainWindow::get_widgetByFlag(int flag){
         break;
     }
     if (widget != NULL){
-        connect(widget, SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
-        connect(widget, SIGNAL(request_connectSignal2Slot(int,const char*,int,const char*)), this, SLOT(connectSignal2Slot(int,const char*,int,const char*)));
-        connect(widget, SIGNAL(request_disconnectSignal2Slot(int,const char*,int,const char*)), this, SLOT(disconnectSignal2Slot(int,const char*,int,const char*)));
+        signalSoltDeal(widget, true);
         widgetMap.insert(flag, widget);
     }
     return widget;
@@ -85,12 +107,27 @@ QWidget* MainWindow::get_widgetByFlag(int flag){
 
 void MainWindow::release_widgetMap(){
     for (auto index = widgetMap.begin(), end = widgetMap.end(); index != end; ++index){
-        // printf("release_widgetMap success for: %d\n", index.key());
-        disconnect(index.value(), SIGNAL(request_changeWidgetByFlag(int)), this, SLOT(changeWidgetByFlag(int)));
-        disconnect(index.value(), SIGNAL(request_connectSignal2Slot(int,const char*,int,const char*)), this, SLOT(connectSignal2Slot(int,const char*,int,const char*)));
-        disconnect(index.value(), SIGNAL(request_disconnectSignal2Slot(int,const char*,int,const char*)), this, SLOT(disconnectSignal2Slot(int,const char*,int,const char*)));
+        signalSoltDeal(index.value(), false);
         remove_stackWidget(index.value());
         delete index.value();
     }
     widgetMap.clear();
+}
+
+void MainWindow::signalSoltDeal(QObject* obj, bool isConnect){
+    for (int index = 0; index < signalToSoltListSize; index ++){
+        if (isConnect){
+            if (signalToSoltList[index].isSolt){
+                connect(obj, signalToSoltList[index].signal, this, signalToSoltList[index].solt);
+            } else {
+                connect(this, signalToSoltList[index].signal, obj, signalToSoltList[index].solt);
+            }
+        } else {
+            if (signalToSoltList[index].isSolt){
+                disconnect(obj, signalToSoltList[index].signal, this, signalToSoltList[index].solt);
+            } else {
+                disconnect(this, signalToSoltList[index].signal, obj, signalToSoltList[index].solt);
+            }
+        }
+    }
 }
